@@ -11,6 +11,7 @@ typedef struct stepmotor {
 	stepmotor_func_set_pwm_freq set_pwm_freq;	/*!< Function set PWM frequency */
 	stepmotor_func_start_pwm 	start_pwm;		/*!< Function start PWM */
 	stepmotor_func_stop_pwm 	stop_pwm;		/*!< Function stop PWM */
+	stepmotor_func_set_dir 		set_dir;		/*!< Function set direction */
 } stepmotor_t;
 
 stepmotor_handle_t stepmotor_init(void)
@@ -40,6 +41,7 @@ err_code_t stepmotor_set_config(stepmotor_handle_t handle, stepmotor_cfg_t confi
 	handle->set_pwm_freq = config.set_pwm_freq;
 	handle->start_pwm = config.start_pwm;
 	handle->stop_pwm = config.stop_pwm;
+	handle->set_dir = config.set_dir;
 
 	return ERR_CODE_SUCCESS;
 }
@@ -109,6 +111,20 @@ err_code_t stepmotor_set_pwm_freq(stepmotor_handle_t handle, uint32_t freq_hz)
 
 	handle->set_pwm_freq(freq_hz);
 	handle->freq_hz = freq_hz;
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t stepmotor_set_dir(stepmotor_handle_t handle, uint8_t dir)
+{
+	/* Check if handle structure is NULL */
+	if (handle == NULL)
+	{
+		return ERR_CODE_NULL_PTR;
+	}
+
+	handle->set_dir(dir);
+	handle->dir = dir;
 
 	return ERR_CODE_SUCCESS;
 }

@@ -33,6 +33,7 @@ typedef err_code_t (*stepmotor_func_set_pwm_duty)(float duty);
 typedef err_code_t (*stepmotor_func_set_pwm_freq)(uint32_t freq_hz);
 typedef err_code_t (*stepmotor_func_start_pwm)(void);
 typedef err_code_t (*stepmotor_func_stop_pwm)(void);
+typedef err_code_t (*stepmotor_func_set_dir)(uint8_t dir);
 
 typedef struct stepmotor* stepmotor_handle_t;
 
@@ -48,6 +49,7 @@ typedef struct {
 	stepmotor_func_set_pwm_freq set_pwm_freq;	/*!< Function set PWM frequency */
 	stepmotor_func_start_pwm 	start_pwm;		/*!< Function start PWM */
 	stepmotor_func_stop_pwm 	stop_pwm;		/*!< Function stop PWM */
+	stepmotor_func_set_dir 		set_dir;		/*!< Function set direction */
 } stepmotor_cfg_t;
 
 /*
@@ -131,6 +133,18 @@ err_code_t stepmotor_set_pwm_duty(stepmotor_handle_t handle, float duty);
  *      - Others:           Fail.
  */
 err_code_t stepmotor_set_pwm_freq(stepmotor_handle_t handle, uint32_t freq_hz);
+
+/*
+ * @brief   Set step motor direction.
+ *
+ * @param 	handle Handle structure.
+ * @param 	dir Direction.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t stepmotor_set_dir(stepmotor_handle_t handle, uint8_t dir);
 
 /*
  * @brief   Destroy step motor.
