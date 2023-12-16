@@ -7,7 +7,8 @@ typedef struct stepmotor {
 	uint32_t            		freq_hz;        /*!< PWM frequency in Hz */
 	float 						duty;			/*!< PWM duty cycle */
 	uint8_t 					is_run;			/*!< Running status */
-	stepmotor_func_set_pwm 		set_pwm;		/*!< Function set PWM */
+	stepmotor_func_set_pwm_duty	set_pwm_duty;	/*!< Function set PWM duty*/
+	stepmotor_func_set_pwm_freq set_pwm_freq;	/*!< Function set PWM frequency */
 	stepmotor_func_start_pwm 	start_pwm;		/*!< Function start PWM */
 	stepmotor_func_stop_pwm 	stop_pwm;		/*!< Function stop PWM */
 } stepmotor_t;
@@ -35,7 +36,8 @@ err_code_t stepmotor_set_config(stepmotor_handle_t handle, stepmotor_cfg_t confi
 	handle->duty = config.duty;
 	handle->freq_hz = config.freq_hz;
 	handle->is_run = 0;
-	handle->set_pwm = config.set_pwm;
+	handle->set_pwm_duty = config.set_pwm_duty;
+	handle->set_pwm_freq = config.set_pwm_freq;
 	handle->start_pwm = config.start_pwm;
 	handle->stop_pwm = config.stop_pwm;
 
@@ -91,8 +93,22 @@ err_code_t stepmotor_set_pwm_duty(stepmotor_handle_t handle, float duty)
 		return ERR_CODE_NULL_PTR;
 	}
 
-	handle->set_pwm(duty);
+	handle->set_pwm_duty(duty);
 	handle->duty = duty;
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t stepmotor_set_pwm_freq(stepmotor_handle_t handle, uint32_t freq_hz)
+{
+	/* Check if handle structure is NULL */
+	if (handle == NULL)
+	{
+		return ERR_CODE_NULL_PTR;
+	}
+
+	handle->set_pwm_freq(freq_hz);
+	handle->freq_hz = freq_hz;
 
 	return ERR_CODE_SUCCESS;
 }

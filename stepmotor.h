@@ -29,7 +29,8 @@ extern "C" {
 
 #include "err_code.h"
 
-typedef err_code_t (*stepmotor_func_set_pwm)(float duty);
+typedef err_code_t (*stepmotor_func_set_pwm_duty)(float duty);
+typedef err_code_t (*stepmotor_func_set_pwm_freq)(float freq_hz);
 typedef err_code_t (*stepmotor_func_start_pwm)(void);
 typedef err_code_t (*stepmotor_func_stop_pwm)(void);
 
@@ -43,7 +44,8 @@ typedef struct {
 	bool                		dir;            /*!< Direction */
 	uint32_t            		freq_hz;        /*!< PWM frequency in Hz */
 	float 						duty;			/*!< PWM duty cycle */
-	stepmotor_func_set_pwm 		set_pwm;		/*!< Function set PWM */
+	stepmotor_func_set_pwm_duty set_pwm_duty;	/*!< Function set PWM duty */
+	stepmotor_func_set_pwm_freq set_pwm_freq;	/*!< Function set PWM frequency */
 	stepmotor_func_start_pwm 	start_pwm;		/*!< Function start PWM */
 	stepmotor_func_stop_pwm 	stop_pwm;		/*!< Function stop PWM */
 } stepmotor_cfg_t;
@@ -117,6 +119,18 @@ err_code_t stepmotor_stop(stepmotor_handle_t handle);
  *      - Others:           Fail.
  */
 err_code_t stepmotor_set_pwm_duty(stepmotor_handle_t handle, float duty);
+
+/*
+ * @brief   Set PWM frequency.
+ *
+ * @param 	handle Handle structure.
+ * @param 	freq_hz PWM frequency.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t stepmotor_set_pwm_freq(stepmotor_handle_t handle, uint32_t freq_hz);
 
 /*
  * @brief   Destroy step motor.
