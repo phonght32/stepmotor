@@ -30,7 +30,7 @@ extern "C" {
 #include "err_code.h"
 
 typedef err_code_t (*stepmotor_func_set_pwm_duty)(float duty);
-typedef err_code_t (*stepmotor_func_set_pwm_freq)(float freq_hz);
+typedef err_code_t (*stepmotor_func_set_pwm_freq)(uint32_t freq_hz);
 typedef err_code_t (*stepmotor_func_start_pwm)(void);
 typedef err_code_t (*stepmotor_func_stop_pwm)(void);
 
