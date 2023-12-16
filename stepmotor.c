@@ -3,7 +3,7 @@
 #include "stepmotor.h"
 
 typedef struct stepmotor {
-	bool                		dir;            /*!< Direction */
+	uint8_t                		dir;            /*!< Direction */
 	uint32_t            		freq_hz;        /*!< PWM frequency in Hz */
 	float 						duty;			/*!< PWM duty cycle */
 	uint8_t 					is_run;			/*!< Running status */

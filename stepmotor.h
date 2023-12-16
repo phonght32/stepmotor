@@ -41,7 +41,7 @@ typedef struct stepmotor* stepmotor_handle_t;
  * @brief   Configuration structure.
  */
 typedef struct {
-	bool                		dir;            /*!< Direction */
+	uint8_t                		dir;            /*!< Direction */
 	uint32_t            		freq_hz;        /*!< PWM frequency in Hz */
 	float 						duty;			/*!< PWM duty cycle */
 	stepmotor_func_set_pwm_duty set_pwm_duty;	/*!< Function set PWM duty */
